@@ -9,7 +9,6 @@ export async function getFolder(path: string): Promise<getDirResponse> {
     headers: {
       "Content-Type": "application/json",
     },
-    cache: "no-cache",
   });
   const data: getDirResponse = await response.json();
   return data;
@@ -21,7 +20,6 @@ export async function getFileURL(path: string): Promise<string> {
     headers: {
       "Content-Type": "application/json",
     },
-    cache: "no-cache",
   });
   const text = response.text();
   return text;
@@ -32,7 +30,6 @@ export async function getFile(path: string): Promise<FileData> {
     headers: {
       "Content-Type": "application/json",
     },
-    cache: "no-cache",
   });
   const data: FileData = await response.json();
   return data;
