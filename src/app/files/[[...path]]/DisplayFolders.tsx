@@ -1,16 +1,12 @@
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { columns } from "./list/columns";
-import { DataTable } from "./list/data-table";
-import { FileData, FileType, getDirResponse } from "@/types/File";
+import { FileType, getDirResponse } from "@/types/File";
 import Rows from "./list/rows";
 import Grid from "./grid/grid";
 import { LayoutGrid, List, ListCollapse } from "lucide-react";
 import { getFolder } from "@/server/file";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { cookies } from "next/headers";
-import Image from "next/image";
 import FileViewer from "@/components/Fileviewer";
 
 export default function DisplayFolders({ defaultTab }: { defaultTab: string }) {
