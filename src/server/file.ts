@@ -44,3 +44,11 @@ export async function getFileType(path: string): Promise<FileType> {
   });
   return (await response.text()) as FileType;
 }
+export async function deleteFile(path: string) {
+  const response = await fetch(`${url}file/deletefile/${path}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}

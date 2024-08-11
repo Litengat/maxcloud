@@ -3,6 +3,7 @@ import {
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
+  ContextMenuSeparator,
 } from "@/components/ui/context-menu";
 import {
   AlertDialog,
@@ -17,7 +18,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 
-import { getFileURL } from "@/server/file";
+import { deleteFile, getFileURL } from "@/server/file";
 import { FileData } from "@/types/File";
 import { useEffect, useState } from "react";
 import { FileDisplay } from "./grid/file-display";
@@ -30,6 +31,7 @@ export function FileContextMenu({
 }) {
   const [openDownloadDialog, setOpenDownloadDialog] = useState(false);
   const [openRenameDialog, setOpenRenameDialog] = useState(false);
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   return (
     <>
       <ContextMenu>
@@ -46,6 +48,10 @@ export function FileContextMenu({
           <ContextMenuItem onClick={() => setOpenRenameDialog(true)}>
             Rename
           </ContextMenuItem>
+          <ContextMenuSeparator />
+          <ContextMenuItem onClick={() => setOpenDeleteDialog(true)}>
+            <p className="text-red-500">Delete</p>
+          </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
       {openDownloadDialog ? (
@@ -60,6 +66,13 @@ export function FileContextMenu({
           filedata={file}
           open={openRenameDialog}
           setOpen={setOpenRenameDialog}
+        />
+      ) : null}
+      {openDeleteDialog ? (
+        <DeleteDialog
+          file={file}
+          openDeleteDialog={openDeleteDialog}
+          setOpenDeleteDialog={setOpenDeleteDialog}
         />
       ) : null}
     </>
@@ -136,6 +149,42 @@ function RenameDialog({
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction onClick={() => {}}>Rename</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+function DeleteDialog({
+  file,
+  openDeleteDialog,
+  setOpenDeleteDialog,
+}: {
+  file: FileData;
+  openDeleteDialog: boolean;
+  setOpenDeleteDialog: (arg0: boolean) => void;
+}) {
+  return (
+    <AlertDialog open={openDeleteDialog}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete {file.name}?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure you want to delete {file.name}?
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={() => setOpenDeleteDialog(false)}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction
+            onClick={() => {
+              () => setOpenDeleteDialog(false);
+              //deleteFile(file.path);
+            }}
+            className="bg-red-600 text-white hover:bg-red-800"
+          >
+            Delete
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
