@@ -179,7 +179,7 @@ function DeleteDialog({
           <AlertDialogAction
             onClick={() => {
               () => setOpenDeleteDialog(false);
-              //deleteFile(file.path);
+              deleteFile(file.path);
             }}
             className="bg-red-600 text-white hover:bg-red-800"
           >
