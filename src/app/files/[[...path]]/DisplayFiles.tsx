@@ -14,7 +14,7 @@ export default function DisplayFiles({ defaultTab }: { defaultTab: string }) {
     getFileType(path).then(setFileType);
   }, []);
 
-  if (!fileType) return <p>Loading File...</p>;
+  if (!fileType) return <p>Loading Files...</p>;
 
   return (
     <>
