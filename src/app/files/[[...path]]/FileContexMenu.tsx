@@ -20,8 +20,9 @@ import { Input } from "@/components/ui/input";
 
 import { deleteFile, getFileURL } from "@/server/file";
 import { FileData } from "@/types/File";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { FileDisplay } from "./grid/file-display";
+import { toast } from "sonner";
 export function FileContextMenu({
   children,
   file,
@@ -167,9 +168,11 @@ function DeleteDialog({
     <AlertDialog open={openDialog}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete {file.name}?</AlertDialogTitle>
+          <AlertDialogTitle>
+            Delete <b>{file.name}</b>?
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete {file.name}?
+            Are you sure you want to delete <b>{file.name}</b>?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -178,15 +181,15 @@ function DeleteDialog({
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              () => setOpenDialog(false);
               deleteFile(file.path);
+              setOpenDialog(false);
+              toast(file.name + " deleted");
             }}
             className="bg-red-600 text-white hover:bg-red-800"
           >
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>
-        s
       </AlertDialogContent>
     </AlertDialog>
   );
