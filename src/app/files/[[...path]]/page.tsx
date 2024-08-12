@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import Resizable from "./Resizeble";
 
-export default function FilesPage({ params }: { params: { slug: string } }) {
+export default function FilesPage() {
   const layout = cookies().get("files-resizable:layout");
   const tab = cookies().get("files-displayTab:Value");
   let defaultLayout;

@@ -71,8 +71,8 @@ export function FileContextMenu({
       {openDeleteDialog ? (
         <DeleteDialog
           file={file}
-          openDeleteDialog={openDeleteDialog}
-          setOpenDeleteDialog={setOpenDeleteDialog}
+          openDialog={openDeleteDialog}
+          setOpenDialog={setOpenDeleteDialog}
         />
       ) : null}
     </>
@@ -156,15 +156,15 @@ function RenameDialog({
 }
 function DeleteDialog({
   file,
-  openDeleteDialog,
-  setOpenDeleteDialog,
+  openDialog,
+  setOpenDialog,
 }: {
   file: FileData;
-  openDeleteDialog: boolean;
-  setOpenDeleteDialog: (arg0: boolean) => void;
+  openDialog: boolean;
+  setOpenDialog: (arg0: boolean) => void;
 }) {
   return (
-    <AlertDialog open={openDeleteDialog}>
+    <AlertDialog open={openDialog}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete {file.name}?</AlertDialogTitle>
@@ -173,12 +173,12 @@ function DeleteDialog({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setOpenDeleteDialog(false)}>
+          <AlertDialogCancel onClick={() => setOpenDialog(false)}>
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              () => setOpenDeleteDialog(false);
+              () => setOpenDialog(false);
               deleteFile(file.path);
             }}
             className="bg-red-600 text-white hover:bg-red-800"
@@ -186,6 +186,7 @@ function DeleteDialog({
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>
+        s
       </AlertDialogContent>
     </AlertDialog>
   );
