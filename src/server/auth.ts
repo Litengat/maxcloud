@@ -16,6 +16,12 @@ import {
   users,
   verificationTokens,
 } from "@/server/db/schema";
+import type {
+  DefaultPostgresAccountsTable,
+  DefaultPostgresSessionsTable,
+  DefaultPostgresUsersTable,
+  DefaultPostgresVerificationTokenTable,
+} from "node_modules/@auth/drizzle-adapter/lib/pg";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -54,10 +60,11 @@ export const authOptions: NextAuthOptions = {
     }),
   },
   adapter: DrizzleAdapter(db, {
-    usersTable: users,
-    accountsTable: accounts,
-    sessionsTable: sessions,
-    verificationTokensTable: verificationTokens,
+    usersTable: users as unknown as DefaultPostgresUsersTable,
+    accountsTable: accounts as unknown as DefaultPostgresAccountsTable,
+    sessionsTable: sessions as unknown as DefaultPostgresSessionsTable,
+    verificationTokensTable:
+      verificationTokens as unknown as DefaultPostgresVerificationTokenTable,
   }) as Adapter,
   providers: [
     DiscordProvider({

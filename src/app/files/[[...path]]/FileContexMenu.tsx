@@ -14,13 +14,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 
 import { deleteFile, getFileURL } from "@/server/file";
-import { FileData } from "@/types/File";
-import { use, useEffect, useState } from "react";
+import type { FileData } from "@/types/File";
+import { useEffect, useState } from "react";
 import { FileDisplay } from "./grid/file-display";
 import { toast } from "sonner";
 export function FileContextMenu({
@@ -91,8 +90,8 @@ function DownloadDialog({
 }) {
   const [downloadURL, setDownloadURL] = useState("");
   useEffect(() => {
-    getFileURL(filedata.path).then(setDownloadURL);
-  }, []);
+    void getFileURL(filedata.path).then(setDownloadURL);
+  }, [filedata.path]);
   return (
     <AlertDialog open={open}>
       <AlertDialogContent>
@@ -149,7 +148,13 @@ function RenameDialog({
           <AlertDialogCancel onClick={() => setOpen(false)}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction onClick={() => {}}>Rename</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() => {
+              console.log("rename");
+            }}
+          >
+            Rename
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -181,7 +186,7 @@ function DeleteDialog({
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              deleteFile(file.path);
+              void deleteFile(file.path);
               setOpenDialog(false);
               toast(file.name + " deleted");
             }}

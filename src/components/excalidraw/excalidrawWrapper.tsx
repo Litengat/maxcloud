@@ -1,7 +1,7 @@
 "use client";
 import { Excalidraw } from "@excalidraw/excalidraw";
-import { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
-import { useEffect, useState } from "react";
+import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
+import { useState } from "react";
 
 export default function ExcalidrawWrapper() {
   const [excalidrawAPI, setExcalidrawAPI] = useState<ExcalidrawImperativeAPI>();

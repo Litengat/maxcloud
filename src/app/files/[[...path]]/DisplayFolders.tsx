@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileType, getDirResponse } from "@/types/File";
+import { FileType, type getDirResponse } from "@/types/File";
 import Rows from "./list/rows";
 import Grid from "./grid/grid";
 import { LayoutGrid, List, ListCollapse } from "lucide-react";
@@ -19,9 +19,9 @@ export default function DisplayFolders({ defaultTab }: { defaultTab: string }) {
   });
   const [loading, setIsloading] = useState(false);
   useEffect(() => {
-    getFolder(path).then(setData);
+    void getFolder(path).then(setData);
     setIsloading(true);
-  }, []);
+  }, [path]);
   const onValueChange = (value: string) => {
     document.cookie = `files-displayTab:Value=${value};path=/`;
   };
