@@ -1,15 +1,16 @@
+/* import type { NextApiRequest, NextApiResponse } from "next";
+
 const url = "http://localhost:3010/";
 
-export async function GET(
-  request: Request,
-  { params }: { params: { filepath: string } }
-) {
-  const response = await fetch(`${url}file/getfileURL/${params.filepath}`, {
+async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { filepath } = req.query;
+  const response = await fetch(`${url}file/getfile/${filepath}`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/stream",
     },
-    cache: "no-cache",
   });
-  return response.body;
+  res.status(response.status).send(response.body);
 }
+export { handler as GET, handler as POST };
+ */

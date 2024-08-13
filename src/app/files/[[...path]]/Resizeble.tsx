@@ -4,9 +4,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { FileType } from "@/types/File";
 import DisplayFolders from "./DisplayFolders";
-import DisplayFiles from "./DisplayFiles";
 
 export default function Resizable({
   defaultLayout = [20, 80],

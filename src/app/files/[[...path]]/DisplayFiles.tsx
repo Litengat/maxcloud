@@ -11,8 +11,8 @@ export default function DisplayFiles({ defaultTab }: { defaultTab: string }) {
   const [fileType, setFileType] = useState<FileType>();
 
   useEffect(() => {
-    getFileType(path).then(setFileType);
-  }, []);
+    getFileType(path).then(setFileType).catch(console.error);
+  }, [fileType, path]);
 
   if (!fileType) return <p>Loading Files...</p>;
 

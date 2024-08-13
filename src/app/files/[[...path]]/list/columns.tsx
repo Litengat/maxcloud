@@ -1,16 +1,12 @@
 "use client";
 
-import {
-  getIconForFile,
-  getIconForFolder,
-  getIconForOpenFolder,
-} from "vscode-icons-js";
+import { getIconForFile, getIconForFolder } from "vscode-icons-js";
 import Image from "next/image";
-import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { type ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { FileData } from "@/types/File";
+import { type FileData } from "@/types/File";
 import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import { filesize } from "filesize";
 import {
@@ -21,6 +17,7 @@ import {
 } from "@/components/ui/tooltip";
 import { FileType } from "@/types/File";
 import Link from "next/link";
+import { type CheckedState } from "@radix-ui/react-checkbox";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -30,19 +27,18 @@ export const columns: ColumnDef<FileData>[] = [
     header: ({ table }) => (
       <Checkbox
         checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() &&
+              "indeterminate")) as CheckedState
         }
-        onCheckedChange={(value: any) =>
-          table.toggleAllPageRowsSelected(!!value)
-        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={(value: any) => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
       />
     ),

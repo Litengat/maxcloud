@@ -4,10 +4,10 @@ import Resizable from "./Resizeble";
 export default function FilesPage() {
   const layout = cookies().get("files-resizable:layout");
   const tab = cookies().get("files-displayTab:Value");
-  let defaultLayout;
-  let defaultTab;
+  let defaultLayout: number[] | undefined;
+  let defaultTab: string | undefined;
   if (layout) {
-    defaultLayout = JSON.parse(layout.value);
+    defaultLayout = JSON.parse(layout.value) as number[];
   }
   if (tab) {
     defaultTab = tab.value;

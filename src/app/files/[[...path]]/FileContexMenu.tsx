@@ -14,14 +14,14 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 
 import { deleteFile, getFileURL } from "@/server/file";
-import { FileData } from "@/types/File";
+import type { FileData } from "@/types/File";
 import { useEffect, useState } from "react";
 import { FileDisplay } from "./grid/file-display";
+import { toast } from "sonner";
 export function FileContextMenu({
   children,
   file,
@@ -90,8 +90,8 @@ function DownloadDialog({
 }) {
   const [downloadURL, setDownloadURL] = useState("");
   useEffect(() => {
-    getFileURL(filedata.path).then(setDownloadURL);
-  }, []);
+    void getFileURL(filedata.path).then(setDownloadURL);
+  }, [filedata.path]);
   return (
     <AlertDialog open={open}>
       <AlertDialogContent>
@@ -148,7 +148,13 @@ function RenameDialog({
           <AlertDialogCancel onClick={() => setOpen(false)}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction onClick={() => {}}>Rename</AlertDialogAction>
+          <AlertDialogAction
+            onClick={() => {
+              console.log("rename");
+            }}
+          >
+            Rename
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -167,9 +173,11 @@ function DeleteDialog({
     <AlertDialog open={openDialog}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Delete {file.name}?</AlertDialogTitle>
+          <AlertDialogTitle>
+            Delete <b>{file.name}</b>?
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete {file.name}?
+            Are you sure you want to delete <b>{file.name}</b>?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -178,15 +186,15 @@ function DeleteDialog({
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={() => {
-              () => setOpenDialog(false);
-              deleteFile(file.path);
+              void deleteFile(file.path);
+              setOpenDialog(false);
+              toast(file.name + " deleted");
             }}
             className="bg-red-600 text-white hover:bg-red-800"
           >
             Delete
           </AlertDialogAction>
         </AlertDialogFooter>
-        s
       </AlertDialogContent>
     </AlertDialog>
   );

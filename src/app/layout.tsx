@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
@@ -15,7 +16,7 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <body
         className={cn(
-          "bg-background min-h-screen font-sans antialiased",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable,
         )}
       >
@@ -24,7 +25,8 @@ export default function RootLayout({
           defaultTheme="system" // or 'dark'
           enableSystem
         >
-          {children}
+          <main>{children}</main>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

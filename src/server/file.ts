@@ -1,5 +1,5 @@
 "use server";
-import { FileData, FileType, getDirResponse } from "@/types/File";
+import type { FileData, FileType, getDirResponse } from "@/types/File";
 
 const url = "http://localhost:3010/";
 
@@ -10,7 +10,7 @@ export async function getFolder(path: string): Promise<getDirResponse> {
       "Content-Type": "application/json",
     },
   });
-  const data: getDirResponse = await response.json();
+  const data: getDirResponse = (await response.json()) as getDirResponse;
   return data;
 }
 
@@ -31,7 +31,7 @@ export async function getFile(path: string): Promise<FileData> {
       "Content-Type": "application/json",
     },
   });
-  const data: FileData = await response.json();
+  const data: FileData = (await response.json()) as FileData;
   return data;
 }
 export async function getFileType(path: string): Promise<FileType> {
@@ -45,8 +45,9 @@ export async function getFileType(path: string): Promise<FileType> {
   return (await response.text()) as FileType;
 }
 export async function deleteFile(path: string) {
-  const response = await fetch(`${url}file/deletefile/${path}`, {
-    method: "DELETE",
+  console.log("deleteFile", path);
+  await fetch(`${url}file/delfile/${path}`, {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },

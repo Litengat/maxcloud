@@ -1,7 +1,5 @@
 import * as React from "react";
 import Link from "next/link";
-import { getIconForFolder, getIconForOpenFolder } from "vscode-icons-js";
-import Image from "next/image";
 import {
   Breadcrumb,
   BreadcrumbEllipsis,
@@ -18,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useParams } from "next/navigation";
-import { Item } from "@radix-ui/react-dropdown-menu";
 
 const ITEMS_TO_DISPLAY = 5;
 
@@ -34,7 +31,7 @@ export default function PathDisplay() {
         {path.length > 1 ? (
           <>
             <BreadcrumbItem>
-              <BreadcrumbLink href={arrayToPath([path[0] || ""])}>
+              <BreadcrumbLink href={arrayToPath([path[0] ?? ""])}>
                 {path[0]}
               </BreadcrumbLink>
             </BreadcrumbItem>
