@@ -10,7 +10,7 @@ export async function getFolder(path: string): Promise<getDirResponse> {
       "Content-Type": "application/json",
     },
   });
-  const data: getDirResponse = (await response.json()) as getDirResponse;
+  const data: getDirResponse = await response.json() ;
   return data;
 }
 
@@ -31,7 +31,7 @@ export async function getFile(path: string): Promise<FileData> {
       "Content-Type": "application/json",
     },
   });
-  const data: FileData = (await response.json()) as FileData;
+  const data: FileData = await response.json();
   return data;
 }
 export async function getFileType(path: string): Promise<FileType> {
