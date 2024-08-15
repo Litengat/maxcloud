@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use server";
 import type { FileData, FileType, getDirResponse } from "@/types/File";
 
@@ -10,7 +11,7 @@ export async function getFolder(path: string): Promise<getDirResponse> {
       "Content-Type": "application/json",
     },
   });
-  const data: getDirResponse = await response.json() ;
+  const data: getDirResponse = await response.json();
   return data;
 }
 
