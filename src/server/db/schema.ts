@@ -57,18 +57,23 @@ export const users = createTable("user", {
   permissions: text("permissions").$type<string[]>(),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
+  role: one(roles, { fields: [users.roleid], references: [roles.id] }),
 }));
 
 export const roles = createTable("role", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
-  permissions: text("permissions").array(),
+  permissions: text("permissions")
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
 });
-/* export const rolesRelations = relations(roles, ({ many }) => ({
+export const rolesRelations = relations(roles, ({ many }) => ({
   users: many(users),
-})); */
+}));
+
 export const accounts = createTable(
   "account",
   {

@@ -13,6 +13,14 @@ export async function setUserRole(userId: string, roleId: number) {
   }
   if (hasUserPermission(session.user.permissions, Permissions.Role_set)) {
     void db.update(users).set({ roleid: roleId }).where(eq(users.id, userId));
+    const userswithrole = await db
+      .select()
+      .from(users)
+      .where(eq(users.id, userId));
+
+    userswithrole.forEach((user) => {
+      calcUserPermissions(user.id).catch(console.error);
+    });
   }
 }
 
@@ -32,6 +40,7 @@ export async function addUserPermissions(
       .set({ userpermissions: [...userpermissions, ...permissions] })
       .where(eq(users.id, userid));
   }
+  calcUserPermissions(userid).catch(console.error);
 }
 
 export async function removeUserPermission(
@@ -54,9 +63,10 @@ export async function removeUserPermission(
       .set({ userpermissions: [...removedPermissions] })
       .where(eq(users.id, userid));
   }
+  calcUserPermissions(userid).catch(console.error);
 }
 
-export async function calcuserpermissions(userid: string) {
+export async function calcUserPermissions(userid: string) {
   const user = (await db.select().from(users).where(eq(users.id, userid)))[0];
   const userpermissions = user?.userpermissions ?? [];
   const role = await db
@@ -65,8 +75,8 @@ export async function calcuserpermissions(userid: string) {
     .where(eq(roles.id, user?.roleid ?? 0));
 
   const rolepermissions = role[0]?.permissions ?? [];
-  await db
-    .update(users)
+  db.update(users)
     .set({ permissions: [...rolepermissions, ...userpermissions] })
-    .where(eq(users.id, userid));
+    .where(eq(users.id, userid))
+    .catch(console.error);
 }
