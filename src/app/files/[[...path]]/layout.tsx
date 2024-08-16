@@ -12,7 +12,6 @@ export default async function Layout({
   if (!session) {
     return <SignIn />;
   }
-
   const role = await db
     .select()
     .from(roles)

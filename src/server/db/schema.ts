@@ -64,7 +64,7 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const roles = createTable("role", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
-  permissions: text("permissions").$type<string[]>(),
+  permissions: text("permissions").array(),
 });
 /* export const rolesRelations = relations(roles, ({ many }) => ({
   users: many(users),
