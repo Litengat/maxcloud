@@ -35,6 +35,7 @@ declare module "next-auth" {
 
       roleid?: number | null;
       userpermissions?: string[] | null;
+      permissions?: string[] | null;
     } & DefaultSession["user"];
   }
 
@@ -42,6 +43,7 @@ declare module "next-auth" {
     // ...other properties
     roleid: string;
     userpermissions?: string[] | null;
+    permissions?: string[] | null;
   }
 }
 
@@ -57,7 +59,8 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: user.id,
-        roleid: 1,
+        roleid: user.roleid,
+        permissions: user.permissions,
       },
     }),
   },

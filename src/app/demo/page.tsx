@@ -4,15 +4,5 @@ import { Button } from "@/components/ui/button";
 import { testpermissons } from "@/server/user";
 
 export default function BackgroundBeamsDemo() {
-  return (
-    <>
-      <Button
-        onClick={async () => {
-          await testpermissons();
-        }}
-      >
-        Click me
-      </Button>
-    </>
-  );
+  return <></>;
 }
