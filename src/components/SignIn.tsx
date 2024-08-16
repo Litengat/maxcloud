@@ -1,43 +1,31 @@
-import Link from "next/link";
-
+"use client";
+import React from "react";
+import { BackgroundBeams } from "@/components/background-beams";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export function SignIn() {
   return (
-    <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
-      <div className="flex items-center justify-center py-12">
+    <div className="relative flex h-screen w-full flex-col items-center justify-center rounded-md bg-neutral-950 antialiased">
+      <div className="z-10 mx-auto max-w-2xl p-4">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">Login</h1>
-            <p className="text-balance text-muted-foreground">
-              Enter your email below to login to your account
-            </p>
           </div>
           <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Input
-                id="email"
-                type="email"
-                placeholder="m@example.com"
-                required
-              />
-            </div>
-            <div className="grid gap-2">
-              <div className="flex items-center">
-                <Link
-                  href="/forgot-password"
-                  className="ml-auto inline-block text-sm underline"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id="password" type="password" required />
-            </div>
-            <Button type="submit" className="w-full">
-              Login
+            <Button
+              variant="default"
+              className=""
+              onClick={() => signIn("discord")}
+            >
+              Login with Discord
             </Button>
-            <Button variant="outline" className="w-full">
+            <Button
+              variant="default"
+              className="w-full"
+              onClick={() => signIn("google")}
+            >
               Login with Google
             </Button>
           </div>
@@ -49,6 +37,7 @@ export function SignIn() {
           </div>
         </div>
       </div>
+      <BackgroundBeams />
     </div>
   );
 }

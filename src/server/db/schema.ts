@@ -52,12 +52,23 @@ export const users = createTable("user", {
     withTimezone: true,
   }).default(sql`CURRENT_TIMESTAMP`),
   image: varchar("image", { length: 255 }),
+  roleid: integer("roleid"),
+  userpermissions: text("userpermissions").$type<string[]>(),
+  permissions: text("permissions").$type<string[]>(),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
 }));
 
+export const roles = createTable("role", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  permissions: text("permissions").$type<string[]>(),
+});
+/* export const rolesRelations = relations(roles, ({ many }) => ({
+  users: many(users),
+})); */
 export const accounts = createTable(
   "account",
   {
