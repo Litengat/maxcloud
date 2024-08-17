@@ -3,7 +3,7 @@ import { authOptions } from "@/server/auth";
 import { hasUserPermission, Permission } from "@/types/Permissions";
 import PermissionDenied from "@/components/PermissionDenied";
 
-const permission = Permission.File_read;
+const permission = Permission.Admin_page;
 
 export default async function Layout({
   children,

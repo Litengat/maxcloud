@@ -1,6 +1,6 @@
 export enum Permission {
-  admin_star = "*",
-  admin_page = "admin.page",
+  Admin_star = "*",
+  Admin_page = "admin.page",
 
   File_read = "file.read",
   File_write = "file.write",
