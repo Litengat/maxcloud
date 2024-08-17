@@ -2,7 +2,7 @@
 
 This is a project for my nas
 
-## how to run this
+## How to run this
 
 1. clone this repo and [fileapi](https://github.com/Litengat/fileapi)
 2. In file api
