@@ -5,7 +5,6 @@ import { Separator } from "@/components/ui/separator";
 
 export default function Textviewer({ fileUrl }: { fileUrl: string }) {
   const [text, setText] = useState("");
-  console.log(fileUrl);
   useEffect(() => {
     void fetch(fileUrl)
       .then((response) => response.text())

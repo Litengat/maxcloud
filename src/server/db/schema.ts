@@ -53,8 +53,14 @@ export const users = createTable("user", {
   }).default(sql`CURRENT_TIMESTAMP`),
   image: varchar("image", { length: 255 }),
   roleid: integer("roleid"),
-  userpermissions: text("userpermissions").$type<string[]>(),
-  permissions: text("permissions").$type<string[]>(),
+  userpermissions: text("userpermissions")
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
+  permissions: text("permissions")
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
 });
 
 export const usersRelations = relations(users, ({ many, one }) => ({

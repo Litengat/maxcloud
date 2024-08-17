@@ -1,4 +1,7 @@
-export enum Permissions {
+export enum Permission {
+  admin_star = "*",
+  admin_page = "admin.page",
+
   File_read = "file.read",
   File_write = "file.write",
   File_delete = "file.delete",
@@ -12,7 +15,7 @@ export enum Permissions {
 
 export function hasUserPermission(
   permissions: string[] | null | undefined,
-  permission: Permissions,
+  permission: Permission,
 ): boolean {
   if (permissions?.includes("*")) return true;
 

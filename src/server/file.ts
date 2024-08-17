@@ -46,7 +46,6 @@ export async function getFileType(path: string): Promise<FileType> {
   return (await response.text()) as FileType;
 }
 export async function deleteFile(path: string) {
-  console.log("deleteFile", path);
   await fetch(`${url}file/delfile/${path}`, {
     method: "GET",
     headers: {
