@@ -15,6 +15,7 @@ export default function FileViewer({ path }: { path: string }) {
     void getFileURL(path).then(setFileUrl);
   }, [path]);
   if (!fileUrl) return <p>Loading URL...</p>;
+
   switch (extension) {
     case "png":
     case "jpg":
