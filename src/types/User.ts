@@ -1,8 +1,8 @@
-import type { Permissions } from "./Permissions";
+import type { Permission } from "./Permissions";
 export type UserRole = {
   id: string;
   name: string;
-  permissions: Permissions[];
+  permissions: Permission[];
 };
 
 export type User = {
@@ -10,6 +10,6 @@ export type User = {
   email: string;
   image: string;
   roleid: string;
-  permissions: Permissions[];
-  userpermissions: Permissions[];
+  permissions: Permission[];
+  userpermissions: Permission[];
 };
