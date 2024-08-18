@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 "use server";
-import type { FileData, FileType, getDirResponse } from "@/types/File";
+import type { FileData, getDirResponse } from "@/types/File";
 
 const url = "http://localhost:3010/";
 
@@ -12,6 +12,7 @@ export async function getFolder(path: string): Promise<getDirResponse> {
     },
   });
   const data: getDirResponse = await response.json();
+  console.log("dir Resopnse", data);
   return data;
 }
 
@@ -23,6 +24,7 @@ export async function getFileURL(path: string): Promise<string> {
     },
   });
   const text = response.text();
+  console.log("fileURL", text);
   return text;
 }
 export async function getFile(path: string): Promise<FileData> {
@@ -33,17 +35,8 @@ export async function getFile(path: string): Promise<FileData> {
     },
   });
   const data: FileData = await response.json();
+  console.log("file Resopnse", data);
   return data;
-}
-export async function getFileType(path: string): Promise<FileType> {
-  const response = await fetch(`${url}file/getfiletype/${path}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/text",
-    },
-    cache: "no-cache",
-  });
-  return (await response.text()) as FileType;
 }
 export async function deleteFile(path: string) {
   await fetch(`${url}file/delfile/${path}`, {
