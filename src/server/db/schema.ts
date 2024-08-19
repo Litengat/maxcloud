@@ -1,5 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import {
+  boolean,
   index,
   integer,
   pgTableCreator,
@@ -19,7 +20,7 @@ import { type AdapterAccount } from "next-auth/adapters";
  */
 export const createTable = pgTableCreator((name) => `maxcloud_${name}`);
 
-export const posts = createTable(
+/* export const posts = createTable(
   "post",
   {
     id: serial("id").primaryKey(),
@@ -38,7 +39,7 @@ export const posts = createTable(
     createdByIdIdx: index("created_by_idx").on(example.createdById),
     nameIndex: index("name_idx").on(example.name),
   }),
-);
+); */
 
 export const users = createTable("user", {
   id: varchar("id", { length: 255 })
@@ -65,6 +66,7 @@ export const users = createTable("user", {
 export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
   role: one(roles, { fields: [users.roleid], references: [roles.id] }),
+  sharedfiles: many(sharedfiles),
 }));
 
 export const roles = createTable("role", {
@@ -149,3 +151,23 @@ export const verificationTokens = createTable(
     compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   }),
 );
+
+export const sharedfiles = createTable("sharedfile", {
+  id: varchar("id", { length: 255 })
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  path: varchar("path", { length: 255 }).notNull(),
+  sharedBy: varchar("shared_by", { length: 255 }).notNull(),
+  secured: boolean("secured").default(false).notNull(),
+  sharedWith: text("shared_with")
+    .array()
+    .notNull()
+    .default(sql`'{}'::text[]`),
+});
+
+export const sharedfilesRelations = relations(sharedfiles, ({ one }) => ({
+  sharedbyUser: one(users, {
+    fields: [sharedfiles.sharedBy],
+    references: [users.id],
+  }),
+}));

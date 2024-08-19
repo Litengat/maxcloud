@@ -5,13 +5,15 @@ import PermissionDenied from "@/components/PermissionDenied";
 
 const permission = Permission.Admin_page;
 
-export default async function Layout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default async function Page() {
   const session = await getServerSession(authOptions);
   session?.expires;
   if (!hasUserPermission(session?.user.permissions, permission))
     return <PermissionDenied permission={permission} />;
 
-  return <>{children}</>;
+  return (
+    <>
+      <h1>Users Page</h1>
+    </>
+  );
 }

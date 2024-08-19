@@ -36,10 +36,11 @@ export async function getFileURL(path: string): Promise<string> {
     },
   });
   const text = await response.text();
+
   return text;
 }
-export async function getFile(path: string): Promise<FileData> {
-  const response = await fetch(`${url}file/getfile/${path}`, {
+export async function getFileData(path: string): Promise<FileData> {
+  const response = await fetch(`${url}file/getfiledata/${path}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +48,6 @@ export async function getFile(path: string): Promise<FileData> {
     },
   });
   const data: FileData = await response.json();
-  console.log("file Resopnse", data);
   return data;
 }
 export async function deleteFile(path: string): Promise<boolean> {
