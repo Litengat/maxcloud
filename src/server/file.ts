@@ -35,7 +35,7 @@ export async function getFileURL(path: string): Promise<string> {
       server_secret: env.SERVER_SECRET ?? "",
     },
   });
-  const text = await response.text();
+  const text = url + (await response.text());
 
   return text;
 }
