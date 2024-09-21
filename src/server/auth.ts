@@ -22,7 +22,6 @@ import type {
   DefaultPostgresUsersTable,
   DefaultPostgresVerificationTokenTable,
 } from "node_modules/@auth/drizzle-adapter/lib/pg";
-
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
  * object and keep type safety.
@@ -33,15 +32,19 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      // ...other properties
-      // role: UserRole;
+
+      roleid?: number | null;
+      userpermissions?: string[] | null;
+      permissions?: string[] | null;
     } & DefaultSession["user"];
   }
 
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
+  interface User {
+    // ...other properties
+    roleid: string;
+    userpermissions?: string[] | null;
+    permissions?: string[] | null;
+  }
 }
 
 /**
@@ -56,6 +59,8 @@ export const authOptions: NextAuthOptions = {
       user: {
         ...session.user,
         id: user.id,
+        roleid: user.roleid,
+        permissions: user.permissions,
       },
     }),
   },

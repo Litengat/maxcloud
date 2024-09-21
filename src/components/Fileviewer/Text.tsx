@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/card";
@@ -5,8 +6,8 @@ import { Separator } from "@/components/ui/separator";
 
 export default function Textviewer({ fileUrl }: { fileUrl: string }) {
   const [text, setText] = useState("");
-  console.log(fileUrl);
   useEffect(() => {
+    console.log("fetching file " + fileUrl);
     void fetch(fileUrl)
       .then((response) => response.text())
       .then((data) => setText(data));

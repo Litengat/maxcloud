@@ -14,6 +14,11 @@ const config = {
         port: "3010",
         pathname: "**/*",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        pathname: "**/*",
+      },
     ],
   },
   output: "standalone",

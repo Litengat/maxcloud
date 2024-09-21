@@ -25,7 +25,9 @@ export default function RootLayout({
           defaultTheme="system" // or 'dark'
           enableSystem
         >
-          <main>{children}</main>
+          <SessionProvider>
+            <main>{children}</main>
+          </SessionProvider>
           <Toaster />
         </ThemeProvider>
       </body>
